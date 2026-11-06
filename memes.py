@@ -1,3 +1,4 @@
+import os
 import discord
 import random
 from discord.ext import commands
@@ -29,13 +30,16 @@ async def choose(ctx, *choices: str):
     """Chooses between multiple choices."""
     await ctx.send(random.choice(choices))
 
+CARPETA_IMAGENES = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'images')
+
 @bot.command()
 async def meme(ctx):
-    with open('images/meme_1.png', 'rb') as f:
+    imagenes = [archivo for archivo in os.listdir(CARPETA_IMAGENES) if archivo.endswith('.png')]
+    imagen = random.choice(imagenes)
+    with open(os.path.join(CARPETA_IMAGENES, imagen), 'rb') as f:
         # ¡Vamos a almacenar el archivo de la biblioteca Discord convertido en esta variable!
         picture = discord.File(f)
         # A continuación, podemos enviar este archivo como parámetro.
         await ctx.send(file=picture)
-
 
 bot.run("")
