@@ -29,4 +29,13 @@ async def choose(ctx, *choices: str):
     """Chooses between multiple choices."""
     await ctx.send(random.choice(choices))
 
+@bot.command()
+async def meme(ctx):
+    with open('images/meme_1.png', 'rb') as f:
+        # ¡Vamos a almacenar el archivo de la biblioteca Discord convertido en esta variable!
+        picture = discord.File(f)
+        # A continuación, podemos enviar este archivo como parámetro.
+        await ctx.send(file=picture)
+
+
 bot.run("")
